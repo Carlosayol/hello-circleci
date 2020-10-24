@@ -1,11 +1,26 @@
 version: 2.1
 jobs:
   build:
-    docker: 
-      - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
-        auth:
-          username: carlosaolar1
-          password: PERROS900M  # context / project UI env-var reference
+    docker:
+      - image: circleci/openjdk:8-jdk
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "c6:6f:03:bf:5a:bb:ce:24:8d:64:cd:30:3a:73:f8:75"
+      - run:
+          name: Deploy
+          command: |
+            # 6- Give the ingress rule some time to propogate
+            sleep 5
+            # 7- SSH to the server to deploy
+            # TODO Change to your username
+            EC2_USERNAME=ubuntu
+            # TODO Change to your server's URL or public IP
+            EC2_PUBLIC_IP=3.82.229.178
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_IP "apt update -y"
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_IP "apt install apache2 -y"
+            # TODO Perform steps to deploy
+            # .
+            # .
+            # .
