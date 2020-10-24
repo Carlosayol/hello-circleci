@@ -9,11 +9,24 @@ jobs:
           fingerprints:
             - "c6:6f:03:bf:5a:bb:ce:24:8d:64:cd:30:3a:73:f8:75"
       - run:
-          name: Deploy
+          name: Setup
           command: |
             sleep 5
-
             EC2_USERNAME=ubuntu
-
             EC2_PUBLIC_DNS=ec2-3-94-179-178.compute-1.amazonaws.com
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'sudo apt update && sudo apt install apache2 -y'
+            
+  deploy:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - run:
+          name: AWS EC2 deploy
+          command: |
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
+            "echo Start deploy && \
+            cd pruebagit/hello-circleci/ && \
+            sudo git pull && \
+            sudo cp index.html /home/ubuntu/var/www/html/ && \
+            sudo service apache2 restart && \
+            echo Deploy end"
