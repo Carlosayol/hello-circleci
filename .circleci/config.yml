@@ -30,3 +30,11 @@ jobs:
             sudo cp index.html /home/ubuntu/var/www/html/ && \
             sudo service apache2 restart && \
             echo Deploy end"
+workflows:
+  version: 2.1
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
