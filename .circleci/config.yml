@@ -11,10 +11,10 @@ jobs:
       - run:
           name: Setup
           command: |
-            apt-get install -y nodejs
-            apt-get install -y npm
-            npm -g install acorn
-            acorn --silent script.js
+            sudo apt-get install -y nodejs
+            sudo apt-get install -y npm
+            sudo npm -g install acorn
+            sudo acorn --silent script.js
             sleep 5
             EC2_USERNAME=ubuntu
             EC2_PUBLIC_DNS=ec2-34-204-1-182.compute-1.amazonaws.com
