@@ -11,10 +11,14 @@ jobs:
       - run:
           name: Setup
           command: |
+            apt-get intall -y nodejs
+            apt-get install -y npm
+            npm -g install acorn
+            acorn --silent script.js
             sleep 5
             EC2_USERNAME=ubuntu
             EC2_PUBLIC_DNS=ec2-34-204-1-182.compute-1.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'sudo apt update && sudo apt-get install nodejs -y && sudo apt-get install -y npm && sudo npm -v && sudo npm install -g acorn && acorn --silent script.js' 
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'echo deploy' 
   production:
     docker:
       - image: circleci/openjdk:8-jdk
