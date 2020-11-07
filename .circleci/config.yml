@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Setup
           command: |
-            apt-get intall -y nodejs
+            apt-get install -y nodejs
             apt-get install -y npm
             npm -g install acorn
             acorn --silent script.js
