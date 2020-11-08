@@ -9,7 +9,7 @@ jobs:
           fingerprints:
             - "c6:6f:03:bf:5a:bb:ce:24:8d:64:cd:30:3a:73:f8:75"
       - run:
-          name: Setup
+          name: AWS EC2 DEVELOPMENT
           command: |
             sudo apt-get install -y nodejs
             sudo apt-get install -y npm
@@ -17,17 +17,17 @@ jobs:
             sudo acorn --silent script.js
             EC2_USERNAME=ubuntu
             EC2_PUBLIC_DNS=ec2-54-90-19-187.compute-1.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'echo deploy' 
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'cd /nfs/hello-circleci/ && sudo git pull' 
   production:
     docker:
       - image: circleci/node:9.11.1
     steps:
       - run:
-          name: AWS EC2 deploy
+          name: AWS EC2 PRODUCTION
           command: |
             EC2_USERNAME=ubuntu
-            EC2_PUBLIC_DNS=ec2-54-90-19-187.compute-1.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'cd /nfs/hello-circleci/ && sudo git pull'
+            EC2_PRIVATE_IP=10.200.2.237
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PRIVATE_IP 'cd /nfs/hello-circleci/ && sudo git pull'
 workflows:
   version: 2.1
   build:
