@@ -26,8 +26,8 @@ jobs:
           name: AWS EC2 PRODUCTION
           command: |
             EC2_USERNAME=ubuntu
-            EC2_PRIVATE_IP=10.200.2.237
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PRIVATE_IP 'cd /nfs/hello-circleci/ && sudo git pull'
+            EC2_PUBLIC_DNS=ec2-34-224-215-85.compute-1.amazonaws.com
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'ssh -i AWS/mykeypair.pem ubuntu@10.200.2.237 && cd /nfs/hello-circleci/ && sudo git pull'
 workflows:
   version: 2.1
   build:
