@@ -16,7 +16,7 @@ jobs:
             sudo npm -g install acorn
             sudo acorn --silent script.js
             EC2_USERNAME=ubuntu
-            EC2_PUBLIC_DNS=ec2-54-90-19-187.compute-1.amazonaws.com
+            EC2_PUBLIC_DNS=ec2-100-25-0-30.compute-1.amazonaws.com
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'cd /nfs/hello-circleci/ && sudo git pull' 
   production:
     docker:
