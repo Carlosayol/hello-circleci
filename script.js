@@ -2,5 +2,6 @@ function change()
 {
     var elem = document.getElementById("imageID");
     if (elem.getAttribute("src") =="feliznavidad1.png") elem.setAttribute("src", "feliznavidad2.jpg" )
-    else elem.setAttribute("src","feliznavidad1.png" ) ;
+    //else elem.setAttribute("src","feliznavidad1.png" ) ;
+    else elem.setAibute("src","feliznavidad1.png" ) ;
 }
